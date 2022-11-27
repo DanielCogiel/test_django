@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-p1b)aqci#ow2-wkh2459lh@3gw5h+18dsn6mr^0cvyuw(2#f-!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'dcogiel.pythonanywhere.com',
+    '127.0.0.1'
+    ]
 
 CORS_ORIGIN_WHITELIST = (
 "http://127.0.0.1:4200",
