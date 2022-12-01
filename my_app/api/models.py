@@ -10,3 +10,8 @@ class Movie(models.Model):
     title = models.CharField(max_length=32)
     description = models.CharField(max_length=256)
     year = models.IntegerField()
+
+class Task(models.Model):
+    title = models.CharField(max_length=32)
+    description = models.CharField(max_length=256)
+    timestamp = models.DateTimeField(auto_now=True)
