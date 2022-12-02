@@ -11,7 +11,9 @@ class Movie(models.Model):
     description = models.CharField(max_length=256)
     year = models.IntegerField()
 
+
 class Task(models.Model):
     title = models.CharField(max_length=32)
     description = models.CharField(max_length=256)
     timestamp = models.DateTimeField(auto_now=True)
+    film = models.ForeignKey(Movie, related_name="tasks", on_delete=models.CASCADE, null=True)

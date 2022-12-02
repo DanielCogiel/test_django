@@ -70,16 +70,22 @@ CSRF_TRUSTED_ORIGINS = [
 # CSRF_COOKIE_NAME = 'XSRF-TOKEN'
 # CSRF_HEADER_NAME = 'X_CSRF_TOKEN'
 
+# REST_FRAMEWORK = {
+#         'DEFAULT_PERMISSION_CLASSES': [
+#             'rest_framework.permissions.IsAuthenticated',
+#         ],
+#         'DEFAULT_AUTHENTICATION_CLASSES': (
+#             'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
+#             'rest_framework.authentication.SessionAuthentication',
+#             'rest_framework.authentication.TokenAuthentication',
+#         )
+#     }
+
 REST_FRAMEWORK = {
-        'DEFAULT_PERMISSION_CLASSES': [
-            'rest_framework.permissions.IsAuthenticated',
-        ],
-        'DEFAULT_AUTHENTICATION_CLASSES': (
-            'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
-            'rest_framework.authentication.SessionAuthentication',
-            'rest_framework.authentication.TokenAuthentication',
-        )
-    }
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+    ],
+}
 
 AUTH_USER_MODEL = 'api.User'
 
@@ -95,6 +101,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'api',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

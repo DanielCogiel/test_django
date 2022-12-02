@@ -10,7 +10,7 @@ class MovieSerializer(serializers.HyperlinkedModelSerializer):
 class MovieMiniSerializer(serializers.HyperlinkedModelSerializer):
     class Meta: 
         model = Movie
-        fields = ['id', 'title']
+        fields = ['id', 'title', 'tasks']
 
 class TaskSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
