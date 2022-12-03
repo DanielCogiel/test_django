@@ -45,4 +45,5 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
         fields = ['id', 'day', 'time', 'timestamp', 'tag']
+       
 

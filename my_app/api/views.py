@@ -28,7 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
+    queryset = Event.objects.order_by('day', 'time')
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticated]
 
