@@ -37,7 +37,8 @@ class ListEvents(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        events = [{"id": event.id, "day": event.day.name, "time": event.time, "eventName": event.eventName, "tag": event.tag.title} for event in Event.objects.order_by('day', 'time')]
+        events = [{"id": event.id, "day": event.day.name, "time": event.time, "eventName": event.eventName, 
+        "tag": event.tag.title} for event in Event.objects.order_by('day', 'time')]
         return Response(events)
 
     def post(self, request):
@@ -70,7 +71,7 @@ class TagRelatedEvents(APIView):
     def get(self, request):
         tags = request.user.tags.all()
         events = []
-        for event in Event.objects.all():
+        for event in Event.objects.order_by('day', 'time'):
             if event.tag in tags:
                 events.append({"id": event.id, "day": event.day.name, 
                 "time": event.time, "eventName": event.eventName, "tag": event.tag.title})
