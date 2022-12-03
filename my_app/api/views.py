@@ -57,14 +57,26 @@ class ListEvents(APIView):
         new_event.tag = tag
         new_event.time = time
         new_event.save()
-        return Response({"message": time})
+        return Response({"message": "Succesfully added user."})
         
     # def list(self, request):
     #     queryset = self.get_queryset()
     #     serializer = EventSerializer(queryset, many=True)
     #     return Response({"eventName" : serializer.data.name})
 
+class TagRelatedEvents(APIView):
+    permission_classes = [permissions.IsAuthenticated]
 
+    def get(self, request):
+        tags = request.user.tags.all()
+        events = []
+        for event in Event.objects.all():
+            if event.tag in tags:
+                events.append({"id": event.id, "day": event.day.name, 
+                "time": event.time, "eventName": event.eventName, "tag": event.tag.title})
+        return Response(events)
+        # events = [{"id": event.id, "day": event.day.name, "time": event.time, "eventName": event.eventName, "tag": event.tag.title}
+        #  for event in Event.objects.filter().order_by('day', 'time')]
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
