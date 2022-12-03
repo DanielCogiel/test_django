@@ -5,7 +5,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 
-from .serializers import MovieSerializer, MovieMiniSerializer, TaskSerializer, UserSerializer, EventSerializer, TagSerializer
+from .serializers import MovieSerializer, MovieMiniSerializer, TaskSerializer, UserSerializer, PreferenceSerializer, TagSerializer
 from .models import Movie, Task, User, Event, Day, Tag, Room
 
 class MovieViewSet(viewsets.ModelViewSet):
@@ -84,8 +84,14 @@ class UserRelatedTags(APIView):
         serializer = TagSerializer(tags, many=True)
         return Response(serializer.data)
 
-    
+class UserRelatedPreferences(APIView):
+    permission_classes = [permissions.IsAuthenticated]
         
+    def get(self, request):
+        preferences = request.user.preferences.all()
+        serializer = PreferenceSerializer(preferences, many=True)
+        return Response(serializer.data)
+
 class MatchRoom(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
