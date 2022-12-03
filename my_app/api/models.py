@@ -38,7 +38,7 @@ class Event(models.Model):
     tag = models.ForeignKey(Tag, related_name="events", null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f"{self.name} on {self.day}, {self.time} with tag: {self.tag.title}"
+        return f"{self.eventName} on {self.day}, {self.time} with tag: {self.tag.title}"
     # day time name tag
 
 class User(AbstractUser):
