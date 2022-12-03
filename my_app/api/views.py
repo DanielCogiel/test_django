@@ -3,6 +3,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
+from rest_framework.views import APIView
 
 from .serializers import MovieSerializer, MovieMiniSerializer, TaskSerializer, UserSerializer, EventSerializer
 from .models import Movie, Task, User, Event
@@ -27,10 +28,24 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.order_by('day', 'time')
-    serializer_class = EventSerializer
+# class EventViewSet(viewsets.ModelViewSet):
+#     queryset = Event.objects.order_by('day', 'time')
+#     serializer_class = EventSerializer
+#     permission_classes = [permissions.IsAuthenticated]
+
+class ListEvents(APIView):
     permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        events = [{"id": event.id, "day": event.day.name, "time": event.time, "eventName": event.eventName, "tag": event.tag.title} for event in Event.objects.order_by('day', 'time')]
+        return Response(events)
+
+    # def list(self, request):
+    #     queryset = self.get_queryset()
+    #     serializer = EventSerializer(queryset, many=True)
+    #     return Response({"eventName" : serializer.data.name})
+
+
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):

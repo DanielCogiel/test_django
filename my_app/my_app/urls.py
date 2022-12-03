@@ -8,7 +8,7 @@ router = routers.DefaultRouter()
 router.register(r'movies', views.MovieViewSet)
 router.register(r'tasks', views.TaskViewSet)
 router.register(r'users', views.UserViewSet)
-router.register(r'events', views.EventViewSet)
+# router.register(r'events', views.EventViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -16,7 +16,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api-token-auth/', views.CustomAuthToken.as_view())
+    path('api-token-auth/', views.CustomAuthToken.as_view()),
+    path('events/', views.ListEvents.as_view())
 ]
 
 # rest_framework.authtoken.views.obtain_auth_token

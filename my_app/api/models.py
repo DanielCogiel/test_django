@@ -31,7 +31,7 @@ class Day(models.Model):
         return self.name
 
 class Event(models.Model):
-    name = models.CharField(max_length=128)
+    eventName = models.CharField(max_length=128)
     day = models.ForeignKey(Day, related_name="events", null=True, on_delete=models.CASCADE)
     time = models.TimeField()
     timestamp = models.DateTimeField(auto_now=True)
