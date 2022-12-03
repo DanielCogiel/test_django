@@ -6,7 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 
 from .serializers import MovieSerializer, MovieMiniSerializer, TaskSerializer, UserSerializer, EventSerializer
-from .models import Movie, Task, User, Event, Day, Tag
+from .models import Movie, Task, User, Event, Day, Tag, Room
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
@@ -75,8 +75,25 @@ class TagRelatedEvents(APIView):
                 events.append({"id": event.id, "day": event.day.name, 
                 "time": event.time, "eventName": event.eventName, "tag": event.tag.title})
         return Response(events)
-        # events = [{"id": event.id, "day": event.day.name, "time": event.time, "eventName": event.eventName, "tag": event.tag.title}
-        #  for event in Event.objects.filter().order_by('day', 'time')]
+        
+class MatchRoom(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        user_preferences = request.user.preferences.all()
+        chosenRoomID = 1
+        counter = 0
+        maxCounter = 0
+        for room in Room.objects.all():
+            counter = 0
+            for preference in room.preferences.all():
+                if preference in user_preferences:
+                    counter += 1
+            if counter > maxCounter:
+                chosenRoomID = room.id
+                maxCounter = counter
+        return Response({"id": Room.objects.filter(id=chosenRoomID).first().id})
+        # return Response({"message": chosenRoomID})
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):

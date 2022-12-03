@@ -18,7 +18,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-token-auth/', views.CustomAuthToken.as_view()),
     path('events/', views.ListEvents.as_view()),
-    path('events/tagRelated/', views.TagRelatedEvents().as_view())
+    path('events/tagRelated/', views.TagRelatedEvents().as_view()),
+    path('rooms/matchRoom/', views.MatchRoom.as_view())
 ]
 
 # rest_framework.authtoken.views.obtain_auth_token

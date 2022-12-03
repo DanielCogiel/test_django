@@ -41,9 +41,13 @@ class Event(models.Model):
         return f"{self.eventName} on {self.day}, {self.time} with tag: {self.tag.title}"
     # day time name tag
 
+class Room(models.Model):
+    preferences = models.ManyToManyField(Preference, related_name="rooms")
+
 class User(AbstractUser):
     tags = models.ManyToManyField(Tag, related_name="users")
     preferences = models.ManyToManyField(Preference, related_name="preferences")
+    room = models.ForeignKey(Room, related_name="users", null=True, blank=True, on_delete=models.SET_NULL)
 
 class Movie(models.Model):
     title = models.CharField(max_length=32)
