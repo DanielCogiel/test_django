@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 
-from .serializers import MovieSerializer, MovieMiniSerializer, TaskSerializer, UserSerializer
-from .models import Movie, Task, User
+from .serializers import MovieSerializer, MovieMiniSerializer, TaskSerializer, UserSerializer, EventSerializer
+from .models import Movie, Task, User, Event
 
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
@@ -26,6 +26,11 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    permissions_classes = [permissions.IsAuthenticated]
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):

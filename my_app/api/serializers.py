@@ -1,4 +1,4 @@
-from .models import Movie, Task, User, Tag, Preference
+from .models import Movie, Task, User, Tag, Preference, Day, Event
 from rest_framework import serializers
 
 
@@ -28,9 +28,21 @@ class PreferenceSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'title']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    tags = TagSerializer(read_only=True, many=True)
-    preferences = PreferenceSerializer(read_only=True, many=True)
+    tags = TagSerializer(many=True)
+    preferences = PreferenceSerializer(many=True)
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'tags', 'preferences']
+
+class DaySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Day
+        fields = ['id', 'name']
+
+class EventSerializer(serializers.HyperlinkedModelSerializer):
+    day = DaySerializer()
+    tag = TagSerializer()
+    class Meta:
+        model = Event
+        fields = ['id', 'day', 'time', 'timestamp', 'tag']
 

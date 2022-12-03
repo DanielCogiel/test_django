@@ -24,6 +24,23 @@ class Preference(models.Model):
     def __str__(self):
         return self.title
 
+class Day(models.Model):
+    name = models.CharField(max_length=9)
+
+    def __str__(self):
+        return self.name
+
+class Event(models.Model):
+    name = models.CharField(max_length=128)
+    day = models.ForeignKey(Day, related_name="events", null=True, on_delete=models.CASCADE)
+    time = models.TimeField()
+    timestamp = models.DateTimeField(auto_now=True)
+    tag = models.ForeignKey(Tag, related_name="events", null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f"{self.name} on {self.day}, {self.time} with tag: {self.tag.title}"
+    # day time name tag
+
 class User(AbstractUser):
     tags = models.ManyToManyField(Tag, related_name="users")
     preferences = models.ManyToManyField(Preference, related_name="preferences")
