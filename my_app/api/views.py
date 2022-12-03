@@ -48,7 +48,7 @@ class ListEvents(APIView):
         if tag == None:
             return Response({"message": "Invalid tag."})
         time = request.data["time"]
-        if time == "":
+        if time == "" or time == None:
             return Response({"Invalid time."})
         new_event = Event()
         new_event.eventName = request.data["eventName"]
