@@ -5,23 +5,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 
-from .serializers import MovieSerializer, MovieMiniSerializer, TaskSerializer, UserSerializer, PreferenceSerializer, TagSerializer
-from .models import Movie, Task, User, Event, Day, Tag, Room
-
-class MovieViewSet(viewsets.ModelViewSet):
-    queryset = Movie.objects.all()
-    serializer_class = MovieSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def list(self, request, *args, **kwargs):
-        movies = Movie.objects.all()
-        serializer = MovieMiniSerializer(movies, many=True)
-        return Response(serializer.data)
-
-class TaskViewSet(viewsets.ModelViewSet):
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
+from .serializers import UserSerializer, PreferenceSerializer, TagSerializer
+from .models import User, Event, Day, Tag, Room
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

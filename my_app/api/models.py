@@ -47,16 +47,3 @@ class Room(models.Model):
 class User(AbstractUser):
     tags = models.ManyToManyField(Tag, related_name="users")
     preferences = models.ManyToManyField(Preference, related_name="preferences")
-    room = models.ForeignKey(Room, related_name="users", null=True, blank=True, on_delete=models.SET_NULL)
-
-class Movie(models.Model):
-    title = models.CharField(max_length=32)
-    description = models.CharField(max_length=256)
-    year = models.IntegerField()
-
-class Task(models.Model):
-    title = models.CharField(max_length=32)
-    description = models.CharField(max_length=256)
-    timestamp = models.DateTimeField(auto_now=True)
-    film = models.ForeignKey(Movie, related_name="tasks", on_delete=models.CASCADE, null=True)
-

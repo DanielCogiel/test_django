@@ -1,21 +1,5 @@
-from .models import Movie, Task, User, Tag, Preference, Day, Event
+from .models import User, Tag, Preference, Day, Event
 from rest_framework import serializers
-
-
-class MovieSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Movie
-        fields = ['id', 'title', 'description', 'year']
-
-class MovieMiniSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta: 
-        model = Movie
-        fields = ['id', 'title', 'tasks']
-
-class TaskSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Task
-        fields = ['id', 'title', 'description', 'timestamp']
 
 class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
