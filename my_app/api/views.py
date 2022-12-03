@@ -50,15 +50,14 @@ class ListEvents(APIView):
         time = request.data["time"]
         if time == "":
             return Response({"message":"Invalid time."})
+        
         new_event = Event()
         new_event.eventName = request.data["eventName"]
         new_event.day = day
         new_event.tag = tag
         new_event.time = time
-        if new_event.time == None:
-            return Response({"message":"Invalid time."})
         new_event.save()
-        return Response({"message": "Successfully added user."})
+        return Response({"message": time})
         
     # def list(self, request):
     #     queryset = self.get_queryset()
